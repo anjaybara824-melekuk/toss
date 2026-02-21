@@ -9,7 +9,6 @@ from textual.widgets import Static, Label, Input, Button
 from textual.binding import Binding
 from textual.events import MouseDown, MouseMove, MouseUp, Key
 
-# --- ASET SUCI: MODULE JAM BLOK ---
 DIGITS = {
     "0": ["███", "█ █", "█ █", "█ █", "███"], "1": ["  █", "  █", "  █", "  █", "  █"],
     "2": ["███", "  █", "███", "█  ", "███"], "3": ["███", "  █", "███", "  █", "███"],
@@ -26,7 +25,6 @@ def get_ascii_clock(time_str):
         for i in range(5): lines[i] += digit_lines[i] + "  "
     return "\n".join(lines)
 
-# --- FITUR: BRIVOL TUI ---
 class BrivolMenu(Vertical):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -73,7 +71,6 @@ class BrivolMenu(Vertical):
             self.app.action_hide_all()
         self.update_bars()
 
-# --- ASET SUCI: DRAG & WINDOW LOGIC ---
 class FloatingTerminal(Vertical):
     def __init__(self, ws_owner, **kwargs):
         super().__init__(**kwargs)
@@ -197,11 +194,9 @@ class TOSS(App):
         self.set_interval(5, self.monitor_network)
         self.action_open_terminal(auto_tfetch=True)
 
-    # --- FITUR NOTIFIKASI ---
     def post_notification(self, message: str, duration: int = 3):
         box = self.query_one("#notify-box")
         screen_w = self.query_one("#desktop").content_size.width
-        # Offset-y: 1 biar lebih ke atas mendekati border
         box.styles.offset = (screen_w - 35, 1) 
         box.update(f"[bold #a6e22e]TOSS NOTIFY[/]\n{message}")
         box.add_class("show")
@@ -221,7 +216,6 @@ class TOSS(App):
             self.post_notification(msg)
             self.last_wifi_status = current
 
-    # --- LOGIKA KELUAR & WIFI MANAGER ---
     def action_open_wifi_manager(self) -> None:
         if self.is_locked: return
         with self.suspend():
